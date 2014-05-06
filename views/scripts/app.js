@@ -593,7 +593,7 @@
 	}])
 }.call(this), function () {
 	"use strict";
-	angular.module("app", ["ngRoute", "ngAnimate", "ngResource", "ngIdle", "ngDreamFactory", "ui.bootstrap", "easypiechart", "mgo-angular-wizard", "textAngular", "ui.tree", "ngMap", "ngTagsInput", "app.ui.ctrls", "app.ui.directives", "app.ui.services", "app.services", "app.controllers", "app.directives", "app.form.validation", "app.ui.form.ctrls", "app.ui.form.directives", "app.tables", "app.map", "app.task", "app.localization", "app.chart.ctrls", "app.chart.directives", "app.page.ctrls"]).config(["$routeProvider", "$locationProvider", function ($routeProvider, $locationProvider) {
+	angular.module("app", ["ngRoute", "ngAnimate", "ngResource", "ngCookies", "ngIdle", "ngDreamFactory", "ui.bootstrap", "easypiechart", "mgo-angular-wizard", "textAngular", "ui.tree", "ngMap", "ngTagsInput", "app.ui.ctrls", "app.ui.directives", "app.ui.services", "app.services", "app.controllers", "app.directives", "app.form.validation", "app.ui.form.ctrls", "app.ui.form.directives", "app.tables", "app.map", "app.task", "app.localization", "app.chart.ctrls", "app.chart.directives", "app.page.ctrls"]).config(["$routeProvider", "$locationProvider", function ($routeProvider, $locationProvider) {
 		return $routeProvider
 			.when("/", {redirectTo: "/dashboard"})
 			.when("/dashboard", {templateUrl: "views/views/dashboard.html"})

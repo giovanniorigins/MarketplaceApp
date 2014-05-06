@@ -35,11 +35,15 @@
 
 
         <script src="http://maps.google.com/maps/api/js?sensor=false"></script>
+        <script src="/views/scripts/angularjs/angular.js"></script>
+        <script src="/views/scripts/angularjs/angular-animate.js"></script>
+        <script src="/views/scripts/angularjs/angular-resource.js"></script>
+        <script src="/views/scripts/angularjs/angular-cookies.js"></script>
+        <script src="/views/scripts/angularjs/angular-route.js"></script>
         <script src="/views/scripts/vendor.js"></script>
         <script src="/views/scripts/image_crop/crop.js"></script>
         <script src="/views/scripts/angular-dreamfactory.js"></script>
         <script src="/views/scripts/dreamfactory-user-management.js"></script>
-        <script src="/lib/angularjs/angular-resource.min.js"></script>
         <script src="/views/scripts/modules.js"></script>
 
         <script src="/views/scripts/ui.js"></script>
