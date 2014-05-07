@@ -72,5 +72,16 @@
     "vector map": "vecteur de la carte",
     "services": "services",
     "about": "environ",
-    "contact": "contacter"
+    "contact": "contacter",
+    "forgot password": "Mot de passe oublié",
+    "coming soon": "coming soon",
+    "editable tables": "tableaux modifiables",
+    "boxed layout": "mise en boîte",
+    "fullscreen layout": "mise en page en plein écran",
+    "horizontal menu": "menu horizontal",
+    "features": "caractéristiques",
+    "intro": "introduction",
+    "landing": "atterrissage",
+    "landing page": "landing page",
+    "calendar": "calendrier"
 }

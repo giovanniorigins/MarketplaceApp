@@ -72,5 +72,16 @@
     "vector map": "ベクトルマップ",
     "services": "サービス",
     "about": "およそ",
-    "contact": "接触"
+    "contact": "接触",
+    "forgot password": "パスワードを忘れました",
+    "coming soon": "すぐに来る",
+    "editable tables": "編集可能なテーブル",
+    "boxed layout": "箱入りレイアウト",
+    "fullscreen layout": "フルスクリーンレイアウト",
+    "horizontal menu": "水平メニュー",
+    "features": "特徴",
+    "intro": "イントロ",
+    "landing": "着陸",
+    "landing page": "ランディングページ",
+    "calendar": "カレンダー"
 }

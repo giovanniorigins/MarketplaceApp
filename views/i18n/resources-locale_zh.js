@@ -72,5 +72,16 @@
     "vector map": "矢量地圖",
     "services": "服務",
     "about": "左右",
-    "contact": "聯繫"
+    "contact": "聯繫",
+    "forgot password": "忘記密碼",
+    "coming soon": "即將上市",
+    "editable tables": "編輯表",
+    "boxed layout": "盒裝佈局",
+    "fullscreen layout": "全屏佈局",
+    "horizontal menu": "水平菜單",
+    "features": "特點",
+    "intro": "介紹",
+    "landing": "登陸",
+    "landing page": "登陸頁面",
+    "calendar": "日曆"
 }

@@ -72,5 +72,16 @@
     "vector map": "Vektorkarte",
     "services": "Dienstleistungen",
     "about": "ungefähr",
-    "contact": "Kontakt"
+    "contact": "Kontakt",
+    "forgot password": "Passwort vergessen",
+    "coming soon": "coming soon",
+    "editable tables": "editierbare Tabellen",
+    "boxed layout": "boxed Layout",
+    "fullscreen layout": "Vollbild-Layout",
+    "horizontal menu": "horizontales Menü",
+    "features": "Features",
+    "intro": "Intro",
+    "landing": "Landung",
+    "landing page": "Landeseite",
+    "calendar": "Kalender"
 }

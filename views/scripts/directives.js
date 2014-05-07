@@ -14,14 +14,13 @@ angular.module("app.directives", [])
 					case"/":
 						return $element.addClass("body-home");
 					case"/404":
-					case"/pages/500":
-					case"/pages/signin":
-					case"/pages/signup":
-					case"/pages/forgot":
+					case"/500":
+					case"/register":
+					case"/forgot":
 					case"/login":
 					case"/logout":
+					case"/pricing":
 						return $element.addClass("body-special");
-					case"/pages/lock-screen":
 					case"/lock-screen":
 						return $element.addClass("body-special body-lock");
 					case"/tasks":
@@ -98,11 +97,11 @@ angular.module("app.directives", [])
 			return ele.slimScroll({height: attrs.scrollHeight || "100%"})
 		}}
 	}])
-	.directive("niceScroll", [function () {
+	/*.directive("niceScroll", [function () {
 		return{restrict: "A", link: function (scope, ele, attrs) {
 			return ele.niceScroll({cursorcolor: attrs.cursorcolor || "#777", cursorborder: "0", cursorborderradius: "0", cursorwidth: "3px"})
 		}}
-	}])
+	}])*/
 	.directive("goBack", [function () {
 		return{restrict: "A", controller: ["$scope", "$element", "$window", function ($scope, $element, $window) {
 			return $element.on("click", function () {

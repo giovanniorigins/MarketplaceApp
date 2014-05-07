@@ -593,10 +593,19 @@
 	}])
 }.call(this), function () {
 	"use strict";
-	angular.module("app", ["ngRoute", "ngAnimate", "ngResource", "ngCookies", "ngIdle", "ngDreamFactory", "ui.bootstrap", "easypiechart", "mgo-angular-wizard", "textAngular", "ui.tree", "ngMap", "ngTagsInput", "app.ui.ctrls", "app.ui.directives", "app.ui.services", "app.services", "app.controllers", "app.directives", "app.form.validation", "app.ui.form.ctrls", "app.ui.form.directives", "app.tables", "app.map", "app.task", "app.localization", "app.chart.ctrls", "app.chart.directives", "app.page.ctrls"]).config(["$routeProvider", "$locationProvider", function ($routeProvider, $locationProvider) {
+	angular.module("app", ["ngRoute", "ngAnimate", "ngResource", "ngCookies", "dfUserManagement", "ngIdle", "ngDreamFactory", "ui.bootstrap", "easypiechart", "mgo-angular-wizard", "textAngular", "ui.tree", "ngMap", "ngTagsInput", "app.ui.ctrls", "app.ui.directives", "app.ui.services", "app.services", "app.controllers", "app.directives", "app.form.validation", "app.ui.form.ctrls", "app.ui.form.directives", "app.tables", "app.map", "app.task", "app.localization", "app.chart.ctrls", "app.chart.directives", "app.page.ctrls"]).config(["$routeProvider", "$locationProvider", function ($routeProvider, $locationProvider) {
 		return $routeProvider
-			.when("/", {redirectTo: "/dashboard"})
-			.when("/dashboard", {templateUrl: "views/views/dashboard.html"})
+			.when("/", {redirectTo: "/dashboard",
+				resolve: {
+					getUserData: ['$location', 'UserDataService', function($location, UserDataService) {
+						if (!UserDataService.getCurrentUser()) {
+							$location.url('/login')
+						}else {
+							return UserDataService.getCurrentUser();
+						}
+					}]
+				}
+			})
 			.when("/ui/typography", {templateUrl: "views/views/ui/typography.html"})
 			.when("/ui/buttons", {templateUrl: "views/views/ui/buttons.html"})
 			.when("/ui/icons", {templateUrl: "views/views/ui/icons.html"})
@@ -628,7 +637,7 @@
 			.when("/pages/lock-screen", {templateUrl: "views/views/pages/lock-screen.html"})
 			.when("/pages/profile", {templateUrl: "views/views/pages/profile.html"})
 			.when("/404", {templateUrl: "views/views/pages/404.html"})
-			.when("/pages/500", {templateUrl: "views/views/pages/500.html"})
+			.when("/500", {templateUrl: "views/views/pages/500.html"})
 			.when("/pages/blank", {templateUrl: "views/views/pages/blank.html"})
 			.when("/pages/invoice", {templateUrl: "views/views/pages/invoice.html"})
 			.when("/pages/services", {templateUrl: "views/views/pages/services.html"})
@@ -636,23 +645,106 @@
 			.when("/pages/contact", {templateUrl: "views/views/pages/contact.html"})
 			.when("/tasks", {templateUrl: "views/views/tasks/tasks.html"})
 			// My Pages
-			//.when("/login", {templateUrl: "/views/views/pages/signin.html", controller: 'LoginCtrl'})
-			//.when("/logout", {templateUrl: "/views/views/pages/signin.html", controller: 'LogoutCtrl'})
-			.when('/login', {
-				templateUrl: '/views/views/scripts/views/login.html',
-				controller : 'LoginCtrl'
+			.when("/dashboard", {
+				templateUrl: "views/views/dashboard.html",
+				resolve: {
+					getUserData: ['$location', 'UserDataService', function($location, UserDataService) {
+						if (!UserDataService.getCurrentUser()) {
+							$location.url('/login')
+						}else {
+							return UserDataService.getCurrentUser();
+						}
+					}]
+				}
 			})
-			.when('/logout', {
-				templateUrl: '/views/views/scripts/views/logout.html',
-				controller : 'LogoutCtrl'
+			.when("/login", {templateUrl: "/views/views/pages/signin.html"})
+			.when("/logout", {templateUrl: "/views/views/pages/signout.html", controller: 'LogoutCtrl'})
+			.when("/register", 	{templateUrl: "/views/views/pages/signup.html"})
+			.when("/forgot", 	{templateUrl: "/views/views/pages/forgot-password.html"})
+			.when('/register-confirm', {
+				templateUrl: 'views/register-confirm.html'
 			})
-			.when("/register", {templateUrl: "/views/views/pages/signup.html", controller: 'RegisterCtrlCtrl'})
-			.when("/lock-screen", {templateUrl: "/views/views/pages/lock-screen.html"})
-			.when("/categories", {templateUrl: "/views/views/coupons/categories.html"})
-			.when("/shops", {templateUrl: "/views/views/coupons/shops.html"})
-			.when("/shops/:id", {templateUrl: "/views/views/coupons/shop-edit.html"})
-			.when("/coupons", {templateUrl: "/views/views/coupons/coupons.html"})
-			.when("/coupons/:id", {templateUrl: "/views/views/coupons/coupon-edit.html"})
+			.when("/profile", {
+				templateUrl: "views/views/pages/profile.html",
+				resolve: {
+					getUserData: ['$location', 'UserDataService', function($location, UserDataService) {
+						if (!UserDataService.getCurrentUser()) {
+							$location.url('/login')
+						}else {
+							return UserDataService.getCurrentUser();
+						}
+					}]
+				}
+			})
+			.when("/lock-screen", {
+				templateUrl: "/views/views/pages/lock-screen.html",
+				resolve: {
+					getUserData: ['$location', 'UserDataService', function($location, UserDataService) {
+						if (!UserDataService.getCurrentUser()) {
+							$location.url('/login')
+						}else {
+							return UserDataService.getCurrentUser();
+						}
+					}]
+				}})
+			.when("/categories", {
+				templateUrl: "/views/views/coupons/categories.html",
+				resolve: {
+					getUserData: ['$location', 'UserDataService', function($location, UserDataService) {
+						if (!UserDataService.getCurrentUser()) {
+							$location.url('/login')
+						}else {
+							return UserDataService.getCurrentUser();
+						}
+					}]
+				}})
+			.when("/shops", {
+				templateUrl: "/views/views/coupons/shops.html",
+				resolve: {
+					getUserData: ['$location', 'UserDataService', function($location, UserDataService) {
+						if (!UserDataService.getCurrentUser()) {
+							$location.url('/login')
+						}else {
+							return UserDataService.getCurrentUser();
+						}
+					}]
+				}})
+			.when("/shops/:id", {
+				templateUrl: "/views/views/coupons/shop-edit.html",
+				resolve: {
+					getUserData: ['$location', 'UserDataService', function($location, UserDataService) {
+						if (!UserDataService.getCurrentUser()) {
+							$location.url('/login')
+						}else {
+							return UserDataService.getCurrentUser();
+						}
+					}]
+				}})
+			.when("/coupons", {
+				templateUrl: "/views/views/coupons/coupons.html",
+				resolve: {
+					getUserData: ['$location', 'UserDataService', function($location, UserDataService) {
+						if (!UserDataService.getCurrentUser()) {
+							$location.url('/login')
+						}else {
+							return UserDataService.getCurrentUser();
+						}
+					}]
+				}})
+			.when("/coupons/:id", {
+				templateUrl: "/views/views/coupons/coupon-edit.html",
+				resolve: {
+					getUserData: ['$location', 'UserDataService', function($location, UserDataService) {
+						if (!UserDataService.getCurrentUser()) {
+							$location.url('/login')
+						}else {
+							return UserDataService.getCurrentUser();
+						}
+					}]
+				}})
+			.when("/pricing", {templateUrl: "views/views/ui/pricing-tables.html"})
+			.when("/services", {templateUrl: "views/views/pages/services.html"})
+			.when("/features", {templateUrl: "views/views/pages/features.html"})
 			.otherwise({redirectTo: "/404"}),
 			$locationProvider.html5Mode(true);
 	}])

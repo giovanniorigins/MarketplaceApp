@@ -1,9 +1,11 @@
         
-<div id="nav-wrapper" data-nice-scroll data-cursorcolor="#31C0BE">
+<div id="nav-wrapper">
     <ul id="nav"
         data-ng-controller="NavCtrl"
+        data-slim-scroll
         data-collapse-nav
-        data-highlight-active>
+        data-highlight-active
+		data-ng-if="hasUser">
         <li><a href="/dashboard"> <i class="fa fa-dashboard"></i><span data-i18n="Dashboard"></span> </a></li>
 
 	    <!--<li>

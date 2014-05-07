@@ -72,5 +72,16 @@
     "vector map": "mapa vectorial",
     "services": "servicios",
     "about": "sobre",
-    "contact": "en contacto"
+    "contact": "en contacto",
+    "forgot password": "Olvidó su contraseña",
+    "coming soon": "muy pronto",
+    "editable tables": "tablas editables",
+    "boxed layout": "diseño en caja",
+    "fullscreen layout": "diseño de pantalla completa",
+    "horizontal menu": "menú horizontal",
+    "features": "características",
+    "intro": "intro",
+    "landing": "aterrizar",
+    "landing page": "página de aterrizaje",
+    "calendar": "calendario"
 }

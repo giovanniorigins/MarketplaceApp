@@ -5,7 +5,7 @@ angular.module('dfUserManagement', ['ngRoute', 'ngCookies'])
 
     // Set constants for path resolution.
     .constant('MODUSRMNGR_ROUTER_PATH', '/user-management')
-    .constant('MODUSRMNGR_ASSET_PATH', 'bower_components/dreamfactory-user-management/')
+    .constant('MODUSRMNGR_ASSET_PATH', '/views/bower_components/dreamfactory-user-management/')
 
     // Define a router to handle module routes.  None used here
     .config(['$routeProvider', 'MODUSRMNGR_ROUTER_PATH', 'MODUSRMNGR_ASSET_PATH',

@@ -43,7 +43,6 @@ angular.module("app.services", [])
 		}
 	}])
 	.service('UserEventsService', [function () {
-
 		return {
 			login   : {
 				loginRequest: 'user:login:request',

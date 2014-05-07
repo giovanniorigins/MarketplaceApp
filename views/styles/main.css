@@ -32,6 +32,13 @@
 	background-size: contain;vertical-align: middle;
 	display: inline-block;
 }
+.divImg80_80 {
+	width: 80px;
+	height: 80px;
+	background-position: center center;
+	background-size: contain;vertical-align: middle;
+	display: inline-block;
+}
 
 .page-lock .lock-box .lock-img div {
 	position: absolute;

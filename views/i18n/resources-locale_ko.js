@@ -72,5 +72,16 @@
     "vector map": "벡터지도",
     "services": "서비스",
     "about": "약",
-    "contact": "연락"
+    "contact": "연락",
+    "forgot password": "비밀번호 분실",
+    "coming soon": "곧",
+    "editable tables": "편집 가능한 테이블",
+    "boxed layout": "박스 레이아웃",
+    "fullscreen layout": "전체 화면 레이아웃",
+    "horizontal menu": "가로 메뉴",
+    "features": "기능",
+    "intro": "소개",
+    "landing": "방문",
+    "landing page": "랜딩 페이지",
+    "calendar": "달력"
 }

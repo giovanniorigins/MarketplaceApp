@@ -78,5 +78,16 @@
     "vector map": "",
     "services": "",
     "about": "",
-    "contact": ""
+    "contact": "",
+    "forgot password": "",
+    "coming soon": "",
+    "editable tables": "",
+    "boxed layout": "",
+    "fullscreen layout": "",
+    "horizontal menu": "",
+    "features": "",
+    "intro": "",
+    "landing": "",
+    "landing page": "",
+    "calendar": ""
 }

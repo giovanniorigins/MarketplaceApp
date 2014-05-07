@@ -72,5 +72,16 @@
     "vector map": "векторная карта",
     "services": "услуги",
     "about": "о",
-    "contact": "связаться"
+    "contact": "связаться",
+    "forgot password": "забыл пароль",
+    "coming soon": "скоро в продаже",
+    "editable tables": "редактируемые столы",
+    "boxed layout": "коробку макета",
+    "fullscreen layout": "полноэкранный макет",
+    "horizontal menu": "горизонтальное меню",
+    "features": "фишки",
+    "intro": "интро",
+    "landing": "посадки",
+    "landing page": "целевой страницы",
+    "calendar": "календарь"
 }

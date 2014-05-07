@@ -131,18 +131,14 @@ return $retval;
 
 //Script killers
 public static function dvd($stuff, $bh = true, $kill = true) {
-$bh = $bh ? '<br>
-<hr>' : '';
-$retval = '
-<pre>' . var_dump($stuff) . '</pre>' . $bh;
+$bh = $bh ? '<br><hr>' : '';
+$retval = '<pre>' . var_dump($stuff) . '</pre>' . $bh;
 return $kill ? die($retval) : $retval;
 }
 
 public static function dpr($stuff, $bh = true, $kill = true) {
-$bh = $bh ? '<br>
-<hr>' : '';
-$retval = '
-<pre>' . print_r($stuff) . '</pre>' . $bh;
+$bh = $bh ? '<br><hr>' : '';
+$retval = '<pre>' . print_r($stuff) . '</pre>' . $bh;
 return $kill ? die($retval) : $retval;
 }
 
@@ -280,9 +276,7 @@ if (!$u_agent)
 return $data;
 
 if (preg_match('/\((.*?)\)/im', $u_agent, $regs)) {
-preg_match_all('/(?P
-<platform>Android|CrOS|iPhone|iPad|Linux|Macintosh|Windows\ Phone\ OS|Windows|Silk|linux-gnu|BlackBerry|Nintendo\
-	Wii|Xbox)
+preg_match_all('/(?P<platform>Android|CrOS|iPhone|iPad|Linux|Macintosh|Windows\ Phone\ OS|Windows|Silk|linux-gnu|BlackBerry|Nintendo\ Wii|Xbox)
 	(?:\ [^;]*)?
 	(?:;|$)/imx', $regs[1], $result, PREG_PATTERN_ORDER);
 
@@ -306,20 +300,16 @@ preg_match_all('/(?P
 	$data['platform'] = 'Chrome OS';
 	}
 
-	preg_match_all('%(?P
-	<browser>Camino|Kindle|Kindle\ Fire\
-		Build|Firefox|Safari|MSIE|AppleWebKit|Chrome|IEMobile|Opera|Silk|Lynx|Version|Wget|curl|PLAYSTATION\ \d+)
+	preg_match_all('%(?P<browser>Camino|Kindle|Kindle\ Fire\ Build|Firefox|Safari|MSIE|AppleWebKit|Chrome|IEMobile|Opera|Silk|Lynx|Version|Wget|curl|PLAYSTATION\ \d+)
 		(?:;?)
-		(?:(?:[/ ])(?P
-		<version>[0-9.]+)|/(?:[A-Z]*))%x', $u_agent, $result, PREG_PATTERN_ORDER);
+		(?:(?:[/ ])(?P<version>[0-9.]+)|/(?:[A-Z]*))%x', $u_agent, $result, PREG_PATTERN_ORDER);
 
 			$key = 0;
 
 			$data['browser'] = $result['browser'][0];
 			$data['version'] = $result['version'][0];
 
-			if (($key = array_search('Kindle Fire Build', $result['browser'])) !== false || ($key = array_search('Silk',
-			$result['browser'])) !== false) {
+			if (($key = array_search('Kindle Fire Build', $result['browser'])) !== false || ($key = array_search('Silk', $result['browser'])) !== false) {
 			$data['browser'] = $result['browser'][$key] == 'Silk' ? 'Silk' : 'Kindle';
 			$data['platform'] = 'Kindle Fire';
 			if (!($data['version'] = $result['version'][$key])) {
@@ -445,7 +435,5 @@ preg_match_all('/(?P
 
 			}
 
-			//$string = 'abcdefg1234567lk.j098-?@>
-			<_
-			+!';
+			//$string = 'abcdefg1234567lk.j098-?@><_+!';
 			//Vija::filter_anon($string, 'alpha', array('456', '\-', '!', '.'), '-');

@@ -72,5 +72,16 @@
     "vector map": "mappa vettoriale",
     "services": "servizi",
     "about": "about",
-    "contact": "contattare"
+    "contact": "contattare",
+    "forgot password": "password dimenticata",
+    "coming soon": "coming soon",
+    "editable tables": "tabelle modificabili",
+    "boxed layout": "Layout boxed",
+    "fullscreen layout": "Layout fullscreen",
+    "horizontal menu": "menu orizzontale",
+    "features": "caratteristiche",
+    "intro": "intro",
+    "landing": "atterraggio",
+    "landing page": "landing page",
+    "calendar": "calendario"
 }
