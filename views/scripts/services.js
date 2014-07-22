@@ -10,10 +10,8 @@ angular.module("app.services", [])
 		return {
 			// Define custom getRecords service
 			getRecords: function (tableNameStr) {
-
 				// create a promise
 				var deferred = $q.defer();
-
 				// Create request obj
 				var request = {
 					table_name: tableNameStr
@@ -21,22 +19,17 @@ angular.module("app.services", [])
 
 				// Call DreamFactory database service with request obj
 				DreamFactory.api.db.getRecords(request,
-
 					// Success function
 					function (data) {
-
 						// Handle promise
 						deferred.resolve(data);
 					},
-
 					// Error function
 					function (error) {
-
 						// Handle Promise
 						deferred.reject(error);
 					}
 				);
-
 				// Return promise
 				return deferred.promise;
 			}
@@ -108,21 +101,31 @@ angular.module("app.services", [])
 			CouponImages: DSP_URL + '/rest/files/applications/' + DSP_API_KEY + '/images/coupons/?include_files=true'
 		};
 		// Usefull Things to remember
-		// https://dsp-gorigins.cloud.dreamfactory.com/rest/db/coupons?related=shop_by_shop_id%2Ccategories_by_category_id%2Chotspots_by_hotspot_id
+		// https://dsp-gorigins.cloud.dreamfactory.com/rest/db/coupons?related=shop_by_shop_id%2Ccategories_by_category_id
 	}])
 	.factory('Category', ['$resource', 'AppData', function ($resource, AppData) {
 		"use strict";
 		return $resource(AppData.DB + '/categories/:id/?app_name=Marketplace&fields=*', {},
 			{ update: { method: 'PUT' }, query: {method: 'GET', isArray: false} });
 	}])
+	.factory('Issue', ['$resource', 'AppData', function ($resource, AppData) {
+		"use strict";
+		return $resource(AppData.DB + '/issues/:id/?app_name=Marketplace&fields=*&related=shop_by_shop_id%2Cdeals_by_issue_id', {},
+			{ update: { method: 'PUT' }, query: {method: 'GET', isArray: false} });
+	}])
 	.factory('Shop', ['$resource', 'AppData', function ($resource, AppData) {
 		"use strict";
-		return $resource(AppData.DB + '/shop/:id/?app_name=Marketplace&fields=*', {},
+		return $resource(AppData.DB + '/shop/:id/?app_name=Marketplace&fields=*&related=deals_by_shop_id%2Cissues_by_shop_id', {},
 			{ update: { method: 'PUT' }, query: {method: 'GET', isArray: false} });
+	}])
+	.factory('Deal', ['$resource', 'AppData', function ($resource, AppData) {
+		"use strict";
+		return $resource(AppData.DB + '/deal/:id/?app_name=Marketplace&fields=*&related=shop_by_shop_id%2Ccategories_by_category_id%2Cissues_by_issue_id', {},
+			{ update: { method: 'PUT', url: AppData.DB + '/deal/:id/?app_name=Marketplace&fields=*' }, query: {method: 'GET', isArray: false} });
 	}])
 	.factory('Coupon', ['$resource', 'AppData', function ($resource, AppData) {
 		"use strict";
-		return $resource(AppData.DB + '/coupons/:id/?app_name=Marketplace&fields=*&related=shop_by_shop_id%2Ccategories_by_category_id%2Chotspots_by_hotspot_id', {},
+		return $resource(AppData.DB + '/coupons/:id/?app_name=Marketplace&fields=*&related=shop_by_shop_id%2Ccategories_by_category_id', {},
 			{ update: { method: 'PUT', url: AppData.DB + '/coupons/:id/?app_name=Marketplace&fields=*' }, query: {method: 'GET', isArray: false} });
 	}])
 	.factory('CouponImages', ['$resource', 'AppData', function ($resource, AppData) {

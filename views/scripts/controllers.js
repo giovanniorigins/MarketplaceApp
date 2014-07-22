@@ -21,13 +21,18 @@ var convertToSlug = function (Text) {
 
 "use strict";
 angular.module("app.controllers", [])
-	.run(["$rootScope", "$idle", "$location", "logger", function ($rootScope, $idle, $location, DreamFactory, logger) {
+	.run(["$rootScope", "$idle", "$location", "logger", function ($rootScope, $idle, $location, logger) {
 		$rootScope.events = [];
 		$idle.watch();
 
 		$rootScope.$on('$idleTimeout', function () {
 			$location.path("/lock-screen")
-		})
+		});
+
+        //MomentJS functions
+        $rootScope.toDate = function(string) {
+            return moment(string).toDate();
+        };
 
 		$rootScope.tempDir = window.location.origin + '/temp/';
 		$rootScope.imageCoupons = 'https://dsp-gorigins.cloud.dreamfactory.com/rest/files/applications/Marketplace/images/coupons/'
@@ -38,10 +43,18 @@ angular.module("app.controllers", [])
 		$scope.currentUser = UserDataService.getCurrentUser();
 		$scope.hasUser = !!$scope.currentUser || false;
 
-		return $scope.isSpecificPage = function () {
+		$scope.isSpecificPage = function () {
 			var path;
-			return path = $location.path(), _.contains(["/404", "/500", "/login", "/logout", "/register", "/forgot", "/lock-screen"], path)
-		}, $scope.main = {brand: "Marketplace", name: "", image: 'https://dsp-gorigins.cloud.dreamfactory.com/rest/files/applications/Marketplace/me-avatar_300.jpg?app_name=Marketplace'}
+			return path = $location.path(), _.contains(["/404", "/500", "/login", "/logout", "/register", "/forgot", "/lock-screen", "/pricing", "/home", "/services", "/about", "/contact"], path)
+		}, $scope.main = {brand: "Marketplace", name: "", image: 'https://dsp-gorigins.cloud.dreamfactory.com/rest/files/applications/Marketplace/me-avatar_300.jpg?app_name=Marketplace'},
+			$scope.isLockScreen = function () {
+				var path;
+				return path = $location.path(), _.contains(["/lock-screen"], path)
+			},
+			$scope.isHome = function () {
+				var path;
+				return path = $location.path(), _.contains(["/home"], path)
+			}
 	}])
 	.controller("NavCtrl", ["$scope", "taskStorage", "filterFilter", function ($scope, taskStorage, filterFilter) {
 		$scope.$watch('currentUser', function (newValue, oldValue) {
@@ -102,6 +115,21 @@ angular.module("app.controllers", [])
 		})
 
 	}])
+	.controller("HomeCtrl", ["$scope", function ($scope) {
+		$scope.myInterval = 5000;
+		var slides = $scope.slides = [];
+		$scope.addSlide = function() {
+			var newWidth = 600 + slides.length;
+			slides.push({
+				image: 'http://placekitten.com/' + newWidth + '/300',
+				text: ['More','Extra','Lots of','Surplus'][slides.length % 4] + ' ' +
+					['Cats', 'Kittys', 'Felines', 'Cutes'][slides.length % 4]
+			});
+		};
+		for (var i=0; i<4; i++) {
+			$scope.addSlide();
+		}
+	}])
 	.controller("ForgotCtrl", ["$scope", function ($scope) {
 	}])
 	.controller('ProfileCtrl', ['$scope', function ($scope) {
@@ -146,6 +174,114 @@ angular.module("app.controllers", [])
 			});
 			logger.logError("Category Deleted");
 		}
+	}])
+    .controller("IssuesCtrl", ["$scope", "Issue", "Shop", "logger", "$filter", "$modal", function ($scope, Issue, Shop, logger, $filter, $modal) {
+        $scope.start = function () {
+            $scope.Shops = Shop.get();
+            Issue.get(function(data){
+                angular.forEach(data.record, function(i) {
+                    i.start_date = moment(i.start_date).toDate();
+                    i.end_date = moment(i.end_date).toDate();
+                });
+                $scope.Issues = data;
+                $scope.initTable();
+            });
+        };
+        $scope.start();
+
+
+		// Create
+		$scope.createIssue = function (issue) {
+            Issue.save(issue, function (data) {
+				$scope.Issues.record.push(data);
+                logger.logSuccess("Issue Created");
+                $scope.initTable();
+			});
+		};
+
+		// Update
+		$scope.updateIssue = function (issue) {
+            Issue.update({id: issue.id}, issue, function () {
+				updateByAttr($scope.Issues.record, 'id', issue.id, issue);
+                logger.log("Issue Updated");
+                $scope.initTable();
+			});
+		};
+
+		// Delete
+		$scope.deleteIssue = function (issue) {
+            Issue.delete({ id: issue.id }, function () {
+				angular.element("#issue_" + issue.id).fadeOut(400);
+                $timeout(angular.element("#issue_" + issue.id).remove(),500);
+                logger.logError("Issue Deleted");
+                $scope.initTable();
+			});
+
+		};
+
+        /*Issue Table*/
+        $scope.initTable = function () {
+            var init;
+            $scope.searchKeywords = "", $scope.filteredIssues = [], $scope.row = "", $scope.select = function (page) {
+                var end, start;
+                return start = (page - 1) * $scope.numPerPage, end = start + $scope.numPerPage, $scope.currentPageIssues = $scope.filteredIssues.slice(start, end)
+            }, $scope.onFilterChange = function () {
+                return $scope.select(1), $scope.currentPage = 1, $scope.row = ""
+            }, $scope.onNumPerPageChange = function () {
+                return $scope.select(1), $scope.currentPage = 1
+            }, $scope.onOrderChange = function () {
+                return $scope.select(1), $scope.currentPage = 1
+            }, $scope.search = function () {
+                return $scope.filteredIssues = $filter("filter")($scope.Issues.record, $scope.searchKeywords), $scope.onFilterChange()
+            }, $scope.order = function (rowName) {
+                return $scope.row !== rowName ? ($scope.row = rowName, $scope.filteredIssues = $filter("orderBy")($scope.Issues.record, rowName), $scope.onOrderChange()) : void 0
+            }, $scope.numPerPageOpt = [3, 5, 10, 20], $scope.numPerPage = $scope.numPerPageOpt[2], $scope.currentPage = 1, $scope.currentPageIssues = [], (init = function () {
+                return $scope.search(), $scope.select($scope.currentPage)
+            })()
+        };
+
+        // Misc Functions
+        var dFormat = 'dd/MM';
+        $scope.genTitle = function(issue) {
+            return issue.shop_by_shop_id.title + ': ' + $filter('date')(moment(issue.start_date).toDate(), dFormat) + ' - ' + $filter('date')(moment(issue.end_date).toDate(), dFormat);
+        }
+
+        $scope.open = function($event) {
+            $event.preventDefault();
+            $event.stopPropagation();
+
+            $scope.opened = true;
+        };
+
+        // Issue Modal
+        $scope.openIssueModal = function ($event, issue, updateMode) {
+            if (angular.isUndefined(updateMode))
+                return console.log('Parameter not set.');
+            else $scope.updateMode = updateMode;
+
+            $scope.thisIssue = issue;
+            $scope.thisIssue.expire_date = moment($scope.thisIssue.expire_date).toDate();
+            var modalInstance;
+            modalInstance = $modal.open({
+                templateUrl: "issueModal.html",
+                scope: this,
+                backdrop: 'static',
+                size: 'lg'
+            }), modalInstance.result.then(function () {
+            }, function () {
+                $scope.thisIssue = undefined;
+                //$log.info("Modal dismissed at: " + new Date)
+            });
+        };
+
+        $scope.submitModal = function () {
+            if ($scope.updateMode) {
+                $scope.updateIssue(this.thisIssue);
+            } else {
+                $scope.createIssue(this.thisIssue);
+            }
+            $scope.updateMode = undefined;
+        };
 	}])
 	.controller("ShopsCtrl", ["$scope", "Shop", "logger", "$modal", "$timeout", function ($scope, Shop, logger, $modal, $timeout) {
 		$scope.Shops = Shop.get();
@@ -459,33 +595,14 @@ angular.module("app.controllers", [])
 		};
 		// Create
 		$scope.createCoupon = function () {
-			var newCoupon = $scope.newCoupon, arr = [];
+			var newCoupon = $scope.newCoupon;
 			if (newCoupon.coupon_type != 'code' && newCoupon.coupon_code != '')
 				newCoupon.coupon_code = '';
-			angular.forEach($scope.newCoupon.coupon_tags, function (i) {
-				arr.push(i.text);
-			});
-			console.log(arr);
-			newCoupon.coupon_tags = arr;
+
+			newCoupon.coupon_tags = JSON.stringify($scope.newCoupon.coupon_tags);
 			Coupon.save(newCoupon, function (data) {
 				$scope.Coupons.record.push(data);
-				$scope.newCoupon = {
-					title            : '',
-					title_alias      : '',
-					status           : 'active',
-					category_id      : '',
-					shop_id          : '',
-					coupon_type      : 'deal',
-					coupon_code      : '',
-					coupon_images    : '',
-					short_description: '',
-					description      : '',
-					coupon_tags      : [],
-					expire_date      : '',
-					list_price       : '',
-					new_price        : '',
-					discount         : ''
-				};
+				$scope.start();
 				angular.element('#addCoupon .accordion-toggle').click();
 				logger.logSuccess("Coupon Created");
 			}, function (data) {
@@ -528,7 +645,7 @@ angular.module("app.controllers", [])
 	}])
 	.controller("CouponEditCtrl", ["$scope", "CouponImages", "Category", "Shop", "Coupon", "logger", "$timeout", "$routeParams", "$resource", function ($scope, CouponImages, Category, Shop, Coupon, logger, $timeout, $routeParams, $resource) {
 		$scope.thisCoupon = Coupon.get({id: $routeParams.id}, function (data) {
-			//$scope.thisCoupon.coupon_tags = eval(data.coupon_tags);
+			$scope.thisCoupon.coupon_tags = JSON.parse(data.coupon_tags);
 			$scope.Categories = Category.get();
 			$scope.Shops = Shop.get();
 			$scope.today = new Date();
@@ -667,8 +784,7 @@ angular.module("app.controllers", [])
 			delete coupon.hotspot_id;
 			delete coupon.dateCreated;
 			delete coupon.dateUpdated;
-
-			debugger;
+			coupon.coupon_tags = JSON.stringify(coupon.coupon_tags);
 
 			Coupon.update({id: coupon.id}, coupon, function () {
 				logger.logSuccess("Shop Updated");
@@ -676,3 +792,220 @@ angular.module("app.controllers", [])
 
 		};
 	}])
+    .controller("DealsCtrl", ["$scope", "Category", "Issue", "Shop", "Deal", "$modal", "logger", "$filter", "$timeout", "$http", function ($scope, Category, Issue, Shop, Deal, $modal, logger, $filter, $timeout, $http) {
+        $scope.start = function () {
+            Deal.get({}, function (data) {
+
+                angular.forEach(data.record, function (a) {
+                    if (angular.isString(a.deal_tags) && a.deal_tags.length > 1){
+                        var tags = a.deal_tags.split(',');
+                        var arr = [];
+
+                        angular.forEach(tags, function (value, key) {
+                            arr.push({text:value})
+                        });
+                        a.deal_tags = arr;
+                        console.log(a.deal_tags);
+                    }
+                });
+                $scope.Deals = data;
+                $scope.initTable();
+            }, function (data) {
+                logger.logError(data);
+            });
+        };
+        $scope.start();
+
+        // New Deal Form
+        $scope.Categories = Category.get();
+        $scope.Issues = Issue.get();
+        $scope.Shops = Shop.get();
+        $scope.today = new Date();
+        $scope.toSlug = function (text) {
+            return convertToSlug(text);
+        };
+
+        // Create
+        $scope.createDeal = function (deal) {
+            var newDeal = deal;
+            if (angular.isArray(newDeal.deal_tags)){
+                var tags = '';
+                angular.forEach(newDeal.deal_tags, function (value, key) {
+                    tags += (value.text) + ',';
+                });
+                newDeal.deal_tags = tags.slice(0, -1);
+            }
+
+            Deal.save(newDeal, function (data) {
+                $scope.Deals.record.push(data);
+                $scope.initTable();
+                angular.element('#addDeal .accordion-toggle').click();
+                logger.logSuccess("Deal Created");
+            }, function (data) {
+                console.log(data);
+                logger.logError(data);
+            });
+
+        };
+
+        // Update
+        $scope.updateDeal = function (deal) {
+            var thisDeal = deal;
+            if (angular.isArray(thisDeal.deal_tags)){
+                var tags = '';
+                angular.forEach(thisDeal.deal_tags, function (value, key) {
+                    tags += (value.text) + ',';
+                });
+                thisDeal.deal_tags = tags.slice(0, -1);
+            }
+            Deal.update(thisDeal, function (data) {
+                updateByAttr($scope.Deals.record, 'id', deal.id, deal);
+                $scope.initTable();
+                logger.logSuccess("Deal Updated");
+            }, function (data) {
+                console.log(data);
+                logger.logError(data);
+            });
+
+        };
+
+        // Delete
+        $scope.deleteDeal = function (deal) {
+            Deal.delete({ id: deal.id }, function () {
+                angular.element("#deal_" + deal.id).fadeOut().remove();
+                logger.logError("Deal Deleted");
+                $scope.start();
+            });
+        };
+
+        /*Deal Table*/
+        $scope.initTable = function () {
+            var init;
+            $scope.searchKeywords = "", $scope.searchIssues = "", $scope.filteredDeals = [], $scope.row = "", $scope.select = function (page) {
+                var end, start;
+                return start = (page - 1) * $scope.numPerPage, end = start + $scope.numPerPage, $scope.currentPageDeals = $scope.filteredDeals.slice(start, end)
+            }, $scope.onFilterChange = function () {
+                return $scope.select(1), $scope.currentPage = 1, $scope.row = ""
+            }, $scope.onNumPerPageChange = function () {
+                return $scope.select(1), $scope.currentPage = 1
+            }, $scope.onOrderChange = function () {
+                return $scope.select(1), $scope.currentPage = 1
+            }, $scope.search = function () {
+                return $scope.filteredDeals = $filter("filter")($scope.Deals.record, $scope.searchKeywords), $scope.onFilterChange()
+            }, $scope.searchIssue = function () {
+                return $scope.filteredDeals = $filter("filter")($scope.Deals.record, {issue_id: $scope.searchIssues}), $scope.onFilterChange()
+            }, $scope.order = function (rowName) {
+                return $scope.row !== rowName ? ($scope.row = rowName, $scope.filteredDeals = $filter("orderBy")($scope.Deals.record, rowName), $scope.onOrderChange()) : void 0
+            }, $scope.numPerPageOpt = [3, 5, 10, 20], $scope.numPerPage = $scope.numPerPageOpt[3], $scope.currentPage = 1, $scope.currentPageDeals = [], (init = function () {
+                return $scope.search(), $scope.select($scope.currentPage)
+            })()
+        };
+
+        // Confirm Delete Modal for Group
+        $scope.openDeleteConfirmDeal = function ($event, group, array) {
+            var modalInstance;
+            modalInstance = $modal.open({
+                templateUrl: "deleteConfirmation.html",
+                size: 'sm',
+                resolve: {
+                    thisGroup: function () {
+                        return group;
+                    },
+                    thisArray: function () {
+                        return array;
+                    }
+                }
+            }), modalInstance.result.then(function (thisGroup, thisArray) {
+                //$scope.deleteGuest($event, group);
+                if (array.length != 0) {
+                    logger.log('Please empty this group first.');
+                } else {
+                    /*Groups.delete({ id: group.id }, function () {
+                        angular.element('#group_' + group.id).fadeOut(800);
+                        logger.log("Group, " + group.name +" was deleted.");
+                    });*/
+                }
+            }, function () {
+                //$log.info("Modal dismissed at: " + new Date)
+            });
+        };
+
+        // New Deal Modal
+        $scope.openDealModal = function ($event, deal, updateMode) {
+            console.log(deal);
+            if (angular.isUndefined(updateMode))
+                return console.log('Parameter not set.');
+            else $scope.updateMode = updateMode;
+            console.log($scope.updateMode);
+
+            $scope.thisDeal = deal;
+            $scope.thisDeal.expire_date = moment($scope.thisDeal.expire_date).toDate();
+            var modalInstance;
+            modalInstance = $modal.open({
+                templateUrl: "dealModal.html",
+                scope: this,
+                backdrop: 'static',
+                size: 'lg'
+            }), modalInstance.result.then(function () {
+            }, function () {
+                $scope.thisDeal = undefined;
+                //$log.info("Modal dismissed at: " + new Date)
+            });
+        };
+
+        $scope.submitModal = function () {
+            if ($scope.updateMode) {
+                $scope.updateDeal(this.thisDeal);
+            } else {
+                $scope.createDeal(this.thisDeal);
+            }
+            $scope.updateMode = undefined;
+        };
+
+        // Misc Functions
+        var dFormat = 'dd/MM';
+        $scope.genTitle = function(issue) {
+            return issue.shop_by_shop_id.title + ': ' + $filter('date')(moment(issue.start_date).toDate(), dFormat) + ' - ' + $filter('date')(moment(issue.end_date).toDate(), dFormat);
+        };
+        $scope.genTableTitle = function(deal) {
+            return $filter('date')(moment(deal.issues_by_issue_id.start_date).toDate(), dFormat) + ' - ' + $filter('date')(moment(deal.issues_by_issue_id.end_date).toDate(), dFormat);
+        };
+
+        $scope.APISearch = function(value){
+            //console.log();
+            //if (e.keyCode == 13) {
+                return $http.post('/api/itemmaster', {
+                    query: value,
+                    username:'jbain',
+                    password:'Chillin31'
+
+                }).then(function(res){
+                    lol = res.data.item;
+                    var items = [];
+                    angular.forEach(res.data.item, function(v){
+                        if(angular.isArray(v.media) && v.media.length > 0){
+                            v.image = v.media.medium[0].url;
+                        } else if (angular.isObject(v.media) && angular.isDefined(v.media.medium)) {
+                            v.image = v.media.medium.url;
+                        }
+                        items.push(v);
+                    });
+                    return items;
+                });
+                //return false;
+            //}
+        };
+
+        $scope.loadingItemMaster = false;
+
+        $scope.autoFillDeal = function(a){
+            this.thisDeal.brand = a.products.product.brand;
+            this.thisDeal.title = a.products.product.description;
+            this.thisDeal.deal_images = a.image;
+            this.thisDeal.description = a.otherDescription;
+            this.thisDeal.status = 'active';
+            this.thisDeal.size = 'per ' + a.packageData.packageSize.uom.toLowerCase();
+            console.log(a);
+        };
+        $scope.asyncSelected = void 0;
+    }]);

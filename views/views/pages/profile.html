@@ -9,7 +9,8 @@
                     <img alt="" ng-src="{{main.image}}" class="img-circle img80_80">
                     <h3>{{main.name}}</h3>
                     <p data-ng-if="currentUser.is_sys_admin === true">System Administrator</p>
-                    <p data-ng-if="currentUser.is_sys_admin != true">Standard User</p>
+                    <p data-ng-if="currentUser.is_sys_admin != true && currentUser.role_id == 3">Shop Owner</p>
+                    <p data-ng-if="currentUser.is_sys_admin != true && currentUser.role_id != 3">Guest</p>
                 </div>
                 <div class="list-justified-container">
                     <ul class="list-justified text-center">
@@ -144,17 +145,17 @@
                                     <label>Email</label>
                                     {{currentUser.email}}
                                 </li>
+                                <li>
+                                    <span class="icon glyphicon glyphicon-calendar"></span>
+                                    <label>Last Login</label>
+                                    {{currentUser.last_login_date}}
+                                </li>
+                                <li>
+                                    <span class="icon glyphicon glyphicon-briefcase"></span>
+                                    <label>Shop</label>
+                                    {{}}
+                                </li>
                                 <!--<li>
-                                    <span class="icon glyphicon glyphicon-home"></span>
-                                    <label>Address</label>
-                                    Street 123, Avenue 45, Country
-                                </li>
-                                <li>
-                                    <span class="icon glyphicon glyphicon-earphone"></span>
-                                    <label>Contact</label>
-                                    (+012) 345 6789
-                                </li>
-                                <li>
                                     <span class="icon glyphicon glyphicon-flag"></span>
                                     <label>Nationality</label>
                                     Australia

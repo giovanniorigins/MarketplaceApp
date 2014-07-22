@@ -1,6 +1,5 @@
 'use strict';
 
-
 angular.module('ngDreamFactory', [])
     .service('DreamFactory', ['DSP_URL', 'DSP_API_KEY', '$http', '$rootScope',
         function (DSP_URL, DSP_API_KEY, $http, $rootScope) {

@@ -593,60 +593,68 @@
 	}])
 }.call(this), function () {
 	"use strict";
-	angular.module("app", ["ngRoute", "ngAnimate", "ngResource", "ngCookies", "dfUserManagement", "ngIdle", "ngDreamFactory", "ui.bootstrap", "easypiechart", "mgo-angular-wizard", "textAngular", "ui.tree", "ngMap", "ngTagsInput", "app.ui.ctrls", "app.ui.directives", "app.ui.services", "app.services", "app.controllers", "app.directives", "app.form.validation", "app.ui.form.ctrls", "app.ui.form.directives", "app.tables", "app.map", "app.task", "app.localization", "app.chart.ctrls", "app.chart.directives", "app.page.ctrls"]).config(["$routeProvider", "$locationProvider", function ($routeProvider, $locationProvider) {
+	angular.module("app", ["ngRoute", "ngAnimate", "ngResource", "ngCookies", "dfUserManagement", "ngIdle",
+		"ngDreamFactory", "ui.bootstrap", "easypiechart", "mgo-angular-wizard", "textAngular", "ui.tree", "ngMap",
+		"ngTagsInput", "app.ui.ctrls", "app.ui.directives", "app.ui.services", "app.services", "app.controllers",
+		"app.directives", "app.form.validation", "app.ui.form.ctrls", "app.ui.form.directives", "app.tables",
+		"app.map", "app.task", "app.localization", "app.chart.ctrls", "app.chart.directives", "app.page.ctrls"])
+		.config(["$routeProvider", "$locationProvider", function ($routeProvider, $locationProvider) {
 		return $routeProvider
 			.when("/", {redirectTo: "/dashboard",
 				resolve: {
 					getUserData: ['$location', 'UserDataService', function($location, UserDataService) {
 						if (!UserDataService.getCurrentUser()) {
-							$location.url('/login')
+							$location.url('/home')
 						}else {
 							return UserDataService.getCurrentUser();
 						}
 					}]
 				}
 			})
-			.when("/ui/typography", {templateUrl: "views/views/ui/typography.html"})
-			.when("/ui/buttons", {templateUrl: "views/views/ui/buttons.html"})
-			.when("/ui/icons", {templateUrl: "views/views/ui/icons.html"})
-			.when("/ui/grids", {templateUrl: "views/views/ui/grids.html"})
-			.when("/ui/widgets", {templateUrl: "views/views/ui/widgets.html"})
-			.when("/ui/components", {templateUrl: "views/views/ui/components.html"})
-			.when("/ui/timeline", {templateUrl: "views/views/ui/timeline.html"})
-			.when("/ui/nested-lists", {templateUrl: "views/views/ui/nested-lists.html"})
-			.when("/ui/pricing-tables", {templateUrl: "views/views/ui/pricing-tables.html"})
-			.when("/forms/elements", {templateUrl: "views/views/forms/elements.html"})
-			.when("/forms/layouts", {templateUrl: "views/views/forms/layouts.html"})
-			.when("/forms/validation", {templateUrl: "views/views/forms/validation.html"})
-			.when("/forms/wizard", {templateUrl: "views/views/forms/wizard.html"})
-			.when("/maps/gmap", {templateUrl: "views/views/maps/gmap.html"})
-			.when("/maps/jqvmap", {templateUrl: "views/views/maps/jqvmap.html"})
-			.when("/tables/static", {templateUrl: "views/views/tables/static.html"})
-			.when("/tables/responsive", {templateUrl: "views/views/tables/responsive.html"})
-			.when("/tables/dynamic", {templateUrl: "views/views/tables/dynamic.html"})
-			.when("/charts/others", {templateUrl: "views/views/charts/charts.html"})
-			.when("/charts/morris", {templateUrl: "views/views/charts/morris.html"})
-			.when("/charts/flot", {templateUrl: "views/views/charts/flot.html"})
-			.when("/mail/inbox", {templateUrl: "views/views/mail/inbox.html"})
-			.when("/mail/compose", {templateUrl: "views/views/mail/compose.html"})
-			.when("/mail/single", {templateUrl: "views/views/mail/single.html"})
-			.when("/pages/features", {templateUrl: "views/views/pages/features.html"})
-			.when("/pages/signin", {templateUrl: "views/views/pages/signin.html"})
-			.when("/pages/signup", {templateUrl: "views/views/pages/signup.html"})
-			.when("/pages/forgot", {templateUrl: "views/views/pages/forgot-password.html"})
-			.when("/pages/lock-screen", {templateUrl: "views/views/pages/lock-screen.html"})
-			.when("/pages/profile", {templateUrl: "views/views/pages/profile.html"})
-			.when("/404", {templateUrl: "views/views/pages/404.html"})
-			.when("/500", {templateUrl: "views/views/pages/500.html"})
-			.when("/pages/blank", {templateUrl: "views/views/pages/blank.html"})
-			.when("/pages/invoice", {templateUrl: "views/views/pages/invoice.html"})
-			.when("/pages/services", {templateUrl: "views/views/pages/services.html"})
-			.when("/pages/about", {templateUrl: "views/views/pages/about.html"})
-			.when("/pages/contact", {templateUrl: "views/views/pages/contact.html"})
-			.when("/tasks", {templateUrl: "views/views/tasks/tasks.html"})
+			.when("/ui/typography", {templateUrl: "/views/views/ui/typography.html"})
+			.when("/ui/buttons", {templateUrl: "/views/views/ui/buttons.html"})
+			.when("/ui/icons", {templateUrl: "/views/views/ui/icons.html"})
+			.when("/ui/grids", {templateUrl: "/views/views/ui/grids.html"})
+			.when("/ui/widgets", {templateUrl: "/views/views/ui/widgets.html"})
+			.when("/ui/components", {templateUrl: "/views/views/ui/components.html"})
+			.when("/ui/timeline", {templateUrl: "/views/views/ui/timeline.html"})
+			.when("/ui/nested-lists", {templateUrl: "/views/views/ui/nested-lists.html"})
+			.when("/ui/pricing-tables", {templateUrl: "/views/views/ui/pricing-tables.html"})
+			.when("/forms/elements", {templateUrl: "/views/views/forms/elements.html"})
+			.when("/forms/layouts", {templateUrl: "/views/views/forms/layouts.html"})
+			.when("/forms/validation", {templateUrl: "/views/views/forms/validation.html"})
+			.when("/forms/wizard", {templateUrl: "/views/views/forms/wizard.html"})
+			.when("/maps/gmap", {templateUrl: "/views/views/maps/gmap.html"})
+			.when("/maps/jqvmap", {templateUrl: "/views/views/maps/jqvmap.html"})
+			.when("/tables/static", {templateUrl: "/views/views/tables/static.html"})
+			.when("/tables/responsive", {templateUrl: "/views/views/tables/responsive.html"})
+			.when("/tables/dynamic", {templateUrl: "/views/views/tables/dynamic.html"})
+			.when("/charts/others", {templateUrl: "/views/views/charts/charts.html"})
+			.when("/charts/morris", {templateUrl: "/views/views/charts/morris.html"})
+			.when("/charts/flot", {templateUrl: "/views/views/charts/flot.html"})
+			.when("/mail/inbox", {templateUrl: "/views/views/mail/inbox.html"})
+			.when("/mail/compose", {templateUrl: "/views/views/mail/compose.html"})
+			.when("/mail/single", {templateUrl: "/views/views/mail/single.html"})
+			.when("/pages/features", {templateUrl: "/views/views/pages/features.html"})
+			.when("/pages/signin", {templateUrl: "/views/views/pages/signin.html"})
+			.when("/pages/signup", {templateUrl: "/views/views/pages/signup.html"})
+			.when("/pages/forgot", {templateUrl: "/views/views/pages/forgot-password.html"})
+			.when("/pages/lock-screen", {templateUrl: "/views/views/pages/lock-screen.html"})
+			.when("/pages/profile", {templateUrl: "/views/views/pages/profile.html"})
+			.when("/404", {templateUrl: "/views/views/pages/404.html"})
+			.when("/500", {templateUrl: "/views/views/pages/500.html"})
+			.when("/pages/blank", {templateUrl: "/views/views/pages/blank.html"})
+			.when("/pages/invoice", {templateUrl: "/views/views/pages/invoice.html"})
+			.when("/pages/services", {templateUrl: "/views/views/pages/services.html"})
+			.when("/pages/about", {templateUrl: "/views/views/pages/about.html"})
+			.when("/pages/contact", {templateUrl: "/views/views/pages/contact.html"})
+			.when("/tasks", {templateUrl: "/views/views/tasks/tasks.html"})
 			// My Pages
 			.when("/dashboard", {
 				templateUrl: "views/views/dashboard.html",
+				controller: ["getUserData", function(getUserData) {
+
+				}],
 				resolve: {
 					getUserData: ['$location', 'UserDataService', function($location, UserDataService) {
 						if (!UserDataService.getCurrentUser()) {
@@ -657,7 +665,16 @@
 					}]
 				}
 			})
-			.when("/login", {templateUrl: "/views/views/pages/signin.html"})
+			.when("/login", {templateUrl: "/views/views/pages/signin.html",
+				resolve: {
+					getUserData: ['$location', 'UserDataService', function($location, UserDataService) {
+						if (UserDataService.getCurrentUser()) {
+							$location.url('/dashboard');
+							return UserDataService.getCurrentUser();
+						} else { return false; }
+					}]
+				}
+			})
 			.when("/logout", {templateUrl: "/views/views/pages/signout.html", controller: 'LogoutCtrl'})
 			.when("/register", 	{templateUrl: "/views/views/pages/signup.html"})
 			.when("/forgot", 	{templateUrl: "/views/views/pages/forgot-password.html"})
@@ -666,6 +683,18 @@
 			})
 			.when("/profile", {
 				templateUrl: "views/views/pages/profile.html",
+				resolve: {
+					getUserData: ['$location', 'UserDataService', function($location, UserDataService) {
+						if (!UserDataService.getCurrentUser()) {
+							$location.url('/login')
+						}else {
+							return UserDataService.getCurrentUser();
+						}
+					}]
+				}
+			})
+			.when("/user-management", {
+				templateUrl: "views/views/pages/user-management.html",
 				resolve: {
 					getUserData: ['$location', 'UserDataService', function($location, UserDataService) {
 						if (!UserDataService.getCurrentUser()) {
@@ -688,7 +717,7 @@
 					}]
 				}})
 			.when("/categories", {
-				templateUrl: "/views/views/coupons/categories.html",
+				templateUrl: "/views/views/deals/categories.html",
 				resolve: {
 					getUserData: ['$location', 'UserDataService', function($location, UserDataService) {
 						if (!UserDataService.getCurrentUser()) {
@@ -699,7 +728,7 @@
 					}]
 				}})
 			.when("/shops", {
-				templateUrl: "/views/views/coupons/shops.html",
+				templateUrl: "/views/views/deals/shops.html",
 				resolve: {
 					getUserData: ['$location', 'UserDataService', function($location, UserDataService) {
 						if (!UserDataService.getCurrentUser()) {
@@ -710,7 +739,7 @@
 					}]
 				}})
 			.when("/shops/:id", {
-				templateUrl: "/views/views/coupons/shop-edit.html",
+				templateUrl: "/views/views/deals/shop-edit.html",
 				resolve: {
 					getUserData: ['$location', 'UserDataService', function($location, UserDataService) {
 						if (!UserDataService.getCurrentUser()) {
@@ -720,8 +749,41 @@
 						}
 					}]
 				}})
+            .when("/issues", {
+                templateUrl: "/views/views/deals/issues.html",
+                resolve: {
+                    getUserData: ['$location', 'UserDataService', function($location, UserDataService) {
+                        if (!UserDataService.getCurrentUser()) {
+                            $location.url('/login')
+                        }else {
+                            return UserDataService.getCurrentUser();
+                        }
+                    }]
+                }})
+            .when("/deals", {
+                templateUrl: "/views/views/deals/deals.html",
+                resolve: {
+                    getUserData: ['$location', 'UserDataService', function($location, UserDataService) {
+                        if (!UserDataService.getCurrentUser()) {
+                            $location.url('/login');
+                        }else {
+                            return UserDataService.getCurrentUser();
+                        }
+                    }]
+                }})
+			.when("/deals/:id", {
+                templateUrl: "/views/views/deals/deals.html",
+                resolve: {
+                    getUserData: ['$location', 'UserDataService', function($location, UserDataService) {
+                        if (!UserDataService.getCurrentUser()) {
+                            $location.url('/login')
+                        }else {
+                            return UserDataService.getCurrentUser();
+                        }
+                    }]
+                }})
 			.when("/coupons", {
-				templateUrl: "/views/views/coupons/coupons.html",
+				templateUrl: "/views/views/deals/coupons.html",
 				resolve: {
 					getUserData: ['$location', 'UserDataService', function($location, UserDataService) {
 						if (!UserDataService.getCurrentUser()) {
@@ -732,7 +794,7 @@
 					}]
 				}})
 			.when("/coupons/:id", {
-				templateUrl: "/views/views/coupons/coupon-edit.html",
+				templateUrl: "/views/views/deals/coupon-edit.html",
 				resolve: {
 					getUserData: ['$location', 'UserDataService', function($location, UserDataService) {
 						if (!UserDataService.getCurrentUser()) {
@@ -745,6 +807,9 @@
 			.when("/pricing", {templateUrl: "views/views/ui/pricing-tables.html"})
 			.when("/services", {templateUrl: "views/views/pages/services.html"})
 			.when("/features", {templateUrl: "views/views/pages/features.html"})
+			.when("/about", {templateUrl: "views/views/pages/about.html"})
+			.when("/contact", {templateUrl: "views/views/pages/contact.html"})
+			.when("/home", {templateUrl: "views/views/pages/home.html"})
 			.otherwise({redirectTo: "/404"}),
 			$locationProvider.html5Mode(true);
 	}])

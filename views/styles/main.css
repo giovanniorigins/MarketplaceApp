@@ -65,6 +65,12 @@
 textarea.resizeless {
 	resize: none;
 }
+
+.page-down {
+	padding-top: 70px;
+}
+
+.nav, .pagination, .carousel, .panel-title a { cursor: pointer; }
 /*---------------------------------------------------------*/
 /*
 /*  set the aspect ratio
@@ -130,115 +136,87 @@ textarea.resizeless {
 
 
 /*---------------------------------------------------------*/
-/*	nouislider.css
+/*	slider bar styling
 /*---------------------------------------------------------*/
 
-.cropSlider,
-.cropSlider * {
-	-webkit-box-sizing: border-box;
-	-moz-box-sizing: border-box;
-	box-sizing: border-box;
-	-webkit-user-select: none;
-	-moz-user-select: none;
-	-ms-user-select: none;
-	display: block;
-	cursor: default;
+.cropSlider .noUi-target * {
+	-webkit-box-sizing:border-box;
+	-moz-box-sizing:border-box;
+	box-sizing:border-box;
+	-webkit-touch-callout:none;
+	-ms-touch-action:none;
+	-webkit-user-select:none;
+	-moz-user-select:none;
+	-ms-user-select:none;
+	cursor:default
 }
-
-.cropSlider { position: relative }
-.cropSlider a {
-	position: absolute;
-	z-index: 1;
-}
-
-.cropSlider a:nth-child(2) { background: inherit !important }
-.cropSlider.vertical a {
-	width: 100%;
-	bottom: 0;
-}
-
-.cropSlider.horizontal a {
-	height: 100%;
-	right: 0;
-}
-
-/*---------------------------------------------------------*/
-/*	media query for touchscreen
-/*---------------------------------------------------------*/
-
-@media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
-
-	.cropSlider:before,
-	body.TOUCH,
-	.cropSlider div {
-		-ms-touch-action: none;
-	}
-
-	.cropSlider:before {
-		display: block;
-		position: absolute;
-		width: 150%;
-		left: -25%;
-		height: 400%;
-		top: -150%;
-		content: "";
-		z-index: -1;
-	}
-
-	.cropSlider.vertical:before {
-		width: 400%;
-		left: -150%;
-		height: 150%;
-		top: -25%;
-	}
-
-}
-
-/*---------------------------------------------------------*/
-
-.cropSlider a {
-	background:#eee;
-	border-radius:0 5px 5px 0;
-	cursor:pointer;
-}
-
-.cropSlider {
+.cropSlider .noUi-base {
 	margin: 25px 10px;
 	height: 7px;
 	border-radius: 4px;
 	background-color: #bbb;
 	cursor:pointer;
+	position:relative;
+	z-index:1
 }
+.cropSlider .noUi-handle {
+	width: 20px;
+	height: 20px;
+	background: #fff;
+	box-shadow: 0 1px 3px rgba(0,0,0,0.4), inset 0 -4px 8px rgba(0,0,0,0.10);
+	cursor: move;
+	border-radius: 4px;
+	margin:-7px 0 0 -10px
+}
+.cropSlider .noUi-active {
 
-.cropSlider.disabled,
-.cropSlider.disabled.connect.lower a {
+}
+.cropSlider .noUi-connect {
+	background:Teal
+}
+.cropSlider .noUi-background {
+	background:#fbc93d
+}
+.cropSlider .noUi-origin-lower {
+	background:#eee;
+}
+.cropSlider .noUi-origin {
+	position:absolute;
+	right:0;
+	top:0;
+	bottom:0;
+	z-index:0;
+	border-radius:inherit
+}
+.cropSlider .noUi-origin-upper {
+	background:inherit !important
+}
+.cropSlider .noUi-z-index {
+	z-index:10
+}
+.cropSlider .noUi-vertical {
+	width:40px;
+	height:100%
+}
+.cropSlider .noUi-vertical .noUi-origin {
+	bottom:0;
+	left:0
+}
+.cropSlider .noUi-vertical .noUi-handle {
+	margin:-23px 0 0 -3px
+}
+.cropSlider .noUi-target[disabled] .noUi-base {
 	background: #ccc;
 	box-shadow: none;
 }
-
-.cropSlider div {
-	width: 16px;
-	height: 16px;
-	background: #fff;
-	-moz-box-shadow: 0 1px 3px rgba(0,0,0,0.4), inset 0 -4px 8px rgba(0,0,0,0.10);
-	-o-box-shadow: 0 1px 3px rgba(0,0,0,0.4), inset 0 -4px 8px rgba(0,0,0,0.10);
-	-webkit-box-shadow: 0 1px 3px rgba(0,0,0,0.4), inset 0 -4px 8px rgba(0,0,0,0.10);
-	box-shadow: 0 1px 3px rgba(0,0,0,0.4), inset 0 -4px 8px rgba(0,0,0,0.10);
-	cursor: move;
-	-moz-border-radius: 4px;
-	-ms-border-radius: 4px;
-	-o-border-radius: 4px;
-	-webkit-border-radius: 4px;
-	border-radius: 4px;
+.cropSlider .noUi-target[disabled] .noUi-connect {
+	background: #ccc;
+	box-shadow: none;
 }
-
-.cropSlider.disabled div { background: transparent }
-
-.cropSlider.horizontal { width: 300px; height: 7px }
-.cropSlider.horizontal div { margin: -5px 0 0 -9px }
-
-.cropSlider.vertical { width: 10px; height: 300px }
-.cropSlider.vertical div { margin: -9px 0 0 -5px }
+.cropSlider .noUi-state-tap .noUi-origin {
+	-webkit-transition:left .3s, top .3s;
+	transition:left .3s, top .3s
+}
 
 
 /*---------------------------------------------------------*/

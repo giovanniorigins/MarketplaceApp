@@ -20,6 +20,10 @@ angular.module("app.directives", [])
 					case"/login":
 					case"/logout":
 					case"/pricing":
+					case"/services":
+					case"/about":
+					case"/contact":
+					case"/home":
 						return $element.addClass("body-special");
 					case"/lock-screen":
 						return $element.addClass("body-special body-lock");
@@ -88,7 +92,7 @@ angular.module("app.directives", [])
 	.directive("toggleOffCanvas", [function () {
 		return{restrict: "A", link: function (scope, ele) {
 			return ele.on("click", function () {
-				return $("#app").toggleClass("on-canvas")
+				return angular.element("#app").toggleClass("on-canvas")
 			})
 		}}
 	}])
@@ -109,3 +113,19 @@ angular.module("app.directives", [])
 			})
 		}]}
 	}])
+	.directive('nourl', function() {
+		return function($scope, element, attrs) {
+			angular.element(element).click(function(event) {
+				event.preventDefault();
+			});
+		};
+	})
+	.directive('frontNav', function() {
+		return function (scope, element, attrs) {
+			element.find('a[href="'+window.location.pathname+'"]').parent().addClass('active');
+			element.find('a').click(function() {
+				element.find('li.active').removeClass('active');
+				angular.element(this.parentElement).addClass('active');
+			});
+		};
+	})
