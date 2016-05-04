@@ -1,0 +1,25 @@
+<div class="page page-lock" ng-controller="LockScreenCtrl">
+
+	<div class="lock-centered clearfix">
+		<div class="lock-container">
+			<!-- <div ui-time class="lock-time"></div> -->
+
+			<section class="lock-box">
+				<div class="lock-user">{{main.name}}</div>
+				<div class="lock-img"><img src="views/images/assets/user.png" alt=""></div>
+				<div class="lock-pwd">
+					<dreamfactory-user-login options="{showTemplate: false}"></dreamfactory-user-login>
+					<form name="login-form" data-ng-submit="login()">
+						<div class="form-group">
+							<input type="password" class="form-control"
+							       placeholder="Password" data-ng-model="userCreds.password" required>
+							<a href="javascript:;" class="btn-submit" ng-click="login()">
+								<i class="fa fa-arrow-right"></i>
+							</a>
+						</div>
+					</form>
+				</div>
+			</section>
+		</div>
+	</div>
+</div>

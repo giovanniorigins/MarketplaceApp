@@ -55,6 +55,10 @@
 <IfModule mod_headers.c>
     Header unset ETag
 </IfModule>
+
+<IfModule mod_negotiation.c>
+    Options -MultiViews
+</IfModule>
 # Since we're sending far-future expires, we don't need ETags for
 # static content.
 #   developer.yahoo.com/performance/rules.html#etags
@@ -66,12 +70,16 @@ RewriteEngine On
 # If you need to use the `RewriteBase` directive, it should be the
 # absolute physical path to the directory that contains this htaccess file.
 #
-# RewriteBase /
+#RewriteBase /
+
+
+# Redirect Trailing Slashes...
+RewriteRule ^(.*)/$ /$1 [L,R=301]
 
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteRule ^ index.php [QSA,L]
 
-<filesMatch "\.(html|htm|js|css)$">
+<filesMatch "\.(html|htm|js|css|php)$">
     FileETag None
     <ifModule mod_headers.c>
         Header unset ETag

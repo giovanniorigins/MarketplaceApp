@@ -1,0 +1,107 @@
+        
+<div id="nav-wrapper">
+    <ul id="nav"
+        data-ng-controller="NavCtrl"
+        data-slim-scroll
+        data-collapse-nav
+        data-highlight-active
+		data-ng-if="hasUser">
+        <li><a href="/admin/dashboard"> <i class="fa fa-dashboard"></i><span data-i18n="Dashboard"></span> </a></li>
+
+	    <!--<li>
+		    <a href="/admin/sales"><i class="fa fa-certificate"></i><span data-i18n="Sales & Coupons"></span></a>
+		    <ul>
+			    <li><a href="/admin/categories"><i class="fa fa-caret-right"></i><span data-i18n="Categories"></span></a></li>
+			    <li><a href="/admin/shops"><i class="fa fa-caret-right"></i><span data-i18n="Shops"></span></a></li>
+			    <li><a href="/admin/coupons"><i class="fa fa-caret-right"></i><span data-i18n="Coupons"></span></a></li>
+			    <li><a href="/admin/adscans"><i class="fa fa-caret-right"></i><span data-i18n="Ad Scans"></span></a></li>
+		    </ul>
+	    </li>-->
+
+	    <li><a href="/admin/categories"><i class="fa fa-tags"></i><span data-i18n="Categories"></span></a></li>
+	    <li><a href="/admin/issues"><i class="fa fa-tags"></i><span data-i18n="Circulars"></span></a></li>
+	    <li><a href="/admin/shops"><i class="fa fa-shopping-cart"></i><span data-i18n="Shops"></span></a></li>
+	    <li><a href="/admin/deals"><i class="fa fa-certificate"></i><span data-i18n="Deals"></span></a></li>
+	    <li><a href="/admin/coupons"><i class="fa fa-certificate"></i><span data-i18n="Coupons"></span></a></li>
+	    <li><a href="/admin/adscans"><i class="fa fa-picture-o"></i><span data-i18n="Ad Scans"></span></a></li>
+
+	    <li>
+            <a href="/admin/ui"><i class="fa fa-magic"></i><span data-i18n="UI Kit"></span></a>
+            <ul>
+                <li><a href="/admin/ui/buttons"><i class="fa fa-caret-right"></i><span data-i18n="Buttons"></span></a></li>
+                <li><a href="/admin/ui/typography"><i class="fa fa-caret-right"></i><span data-i18n="Typography"></span></a></li>
+                <li><a href="/admin/ui/widgets"><i class="fa fa-caret-right"></i><span data-i18n="Widgets"></span> <span class="badge badge-success">13</span></a></li>
+                <li><a href="/admin/ui/grids"><i class="fa fa-caret-right"></i><span data-i18n="Grids"></span></a></li>
+                <li><a href="/admin/ui/icons"><i class="fa fa-caret-right"></i><span data-i18n="Icons"></span></a></li>
+                <li><a href="/admin/ui/components"><i class="fa fa-caret-right"></i><span data-i18n="Components"></span> <span class="badge badge-danger">17</span></a></li>
+                <li><a href="/admin/ui/timeline"><i class="fa fa-caret-right"></i><span data-i18n="Timeline"></span></a></li>
+                <li><a href="/admin/ui/nested-lists"><i class="fa fa-caret-right"></i><span data-i18n="Nested Lists"></span></a></li>
+                <li><a href="/admin/ui/pricing-tables"><i class="fa fa-caret-right"></i><span data-i18n="Pricing Tables"></span></a></li>
+            </ul>
+        </li>
+        <li>
+            <a href="/admin/table"><i class="fa fa-table"></i><span data-i18n="Tables"></span></a>
+            <ul>
+                <li><a href="/admin/tables/static"><i class="fa fa-caret-right"></i><span data-i18n="Static Tables"></span></a></li>
+                <li><a href="/admin/tables/responsive"><i class="fa fa-caret-right"></i><span data-i18n="Responsive Tables"></span></a></li>
+                <li><a href="/admin/tables/dynamic"><i class="fa fa-caret-right"></i><span data-i18n="Dynamic Tables"></span></a></li>
+            </ul>
+        </li>
+        <li>
+            <a href="/admin/form"><i class="fa fa-pencil"></i><span data-i18n="Forms"></span></a>
+            <ul>
+                <li><a href="/admin/forms/elements"><i class="fa fa-caret-right"></i><span data-i18n="Form Elements"></span> <span class="badge badge-warning">14</span></a></li>
+                <li><a href="/admin/forms/validation"><i class="fa fa-caret-right"></i><span data-i18n="Form Validation"></span></a></li>
+                <li><a href="/admin/forms/wizard"><i class="fa fa-caret-right"></i><span data-i18n="Form Wizard"></span></a></li>
+                <li><a href="/admin/forms/layouts"><i class="fa fa-caret-right"></i><span data-i18n="Form Layouts"></span></a></li>
+            </ul>
+        </li>
+        <li>
+            <a href="/admin/maps"><i class="fa fa-map-marker"></i><span data-i18n="Maps"></span></a>
+            <ul>
+                <li><a href="/admin/maps/gmap"><i class="fa fa-caret-right"></i><span data-i18n="Google Map"></span></a></li>
+                <li><a href="/admin/maps/jqvmap"><i class="fa fa-caret-right"></i><span data-i18n="Vector Map"></span></a></li>
+            </ul>
+        </li>
+        <li>
+            <a href="/admin/pages"><i class="fa fa-file-text-o"></i><span data-i18n="Pages"></span></a>
+            <ul>
+                <li><a href="/admin/pages/signin"><i class="fa fa-caret-right"></i><span data-i18n="Sign in"></span></a></li>
+                <li><a href="/admin/pages/signup"><i class="fa fa-caret-right"></i><span data-i18n="Sign Up"></span></a></li>
+                <li><a href="/admin/pages/forgot"><i class="fa fa-caret-right"></i><span data-i18n="Forgot Password"></span></a></li>
+                <li><a href="/admin/pages/lock-screen"><i class="fa fa-caret-right"></i><span data-i18n="Lock Screen"></span></a></li>
+                <li><a href="/admin/pages/profile"><i class="fa fa-caret-right"></i><span data-i18n="User Profile"></span></a></li>
+                <li><a href="/admin/pages/404"><i class="fa fa-caret-right"></i>404 <span data-i18n="Error"></span></a></li>
+                <li><a href="/admin/pages/500"><i class="fa fa-caret-right"></i>500 <span data-i18n="Error"></span></a></li>
+                <li><a href="/admin/pages/blank"><i class="fa fa-caret-right"></i><span data-i18n="Blank Page"></span></a></li>
+                <li><a href="/admin/pages/services"><i class="fa fa-caret-right"></i><span data-i18n="Services"></span></a></li>
+                <li><a href="/admin/pages/about"><i class="fa fa-caret-right"></i><span data-i18n="About"></span></a></li>
+                <li><a href="/admin/pages/contact"><i class="fa fa-caret-right"></i><span data-i18n="Contact"></span></a></li>
+                <li><a href="/admin/pages/invoice"><i class="fa fa-caret-right"></i><span data-i18n="Invoice"></span></a></li>
+            </ul>
+        </li>
+       <li>
+            <a href="/admin/charts"><i class="fa fa-bar-chart-o"></i><span data-i18n="Charts"></span></a>
+            <ul>
+                <li><a href="/admin/charts/morris"><i class="fa fa-caret-right"></i>Morris <span data-i18n="Charts"></span></a></li>
+                <li><a href="/admin/charts/flot"><i class="fa fa-caret-right"></i>Flot <span data-i18n="Charts"></span></a></li>
+                <li><a href="/admin/charts/others"><i class="fa fa-caret-right"></i>Other <span data-i18n="Charts"></span></a></li>
+            </ul>
+        </li>
+        <li class="nav-task">
+            <a href="/admin/tasks">
+                <i class="fa fa-tasks"></i><span data-i18n="Tasks"></span>
+                <span class="badge badge-info main-badge"
+                      data-ng-show="taskRemainingCount > 0">{{taskRemainingCount}}</span>
+            </a>
+        </li>
+        <li>
+            <a href="/admin/mail"><i class="fa fa-envelope-o"></i><span data-i18n="Mail"></span></a>
+            <ul>
+                <li><a href="/admin/mail/inbox"><i class="fa fa-caret-right"></i><span data-i18n="Inbox"></span></a></li>
+                <li><a href="/admin/mail/compose"><i class="fa fa-caret-right"></i><span data-i18n="Compose"></span></a></li>
+                <li><a href="/admin/mail/single"><i class="fa fa-caret-right"></i><span data-i18n="Single Mail"></span></a></li>
+            </ul>
+        </li>
+    </ul>
+</div>
